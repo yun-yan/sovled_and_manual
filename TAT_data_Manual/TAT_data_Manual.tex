@@ -1,0 +1,239 @@
+\documentclass[12pt]{article}    %text size is 12pt and article form 
+\usepackage{enumitem}            %To use item and enumerate
+\usepackage{graphicx}            %To resize the table 
+\usepackage{geometry}            % To set the paper size
+\usepackage{hyperref}
+\geometry{a4paper,margin=1in}    %set paper A4 size and margin is 1 
+\linespread{1.2}         %line space is 1.2
+\title{TAT Database Program Manual}  % give the information for title
+\date{July 2018}
+
+%If I use \verb, it means the origin form in terminal 
+%If I use {\it}, it means the name of something ex: file or table
+
+\begin{document}
+ \maketitle     % create title
+ \newpage		 
+	
+ \tableofcontents	  % create the contents
+ \newpage    
+		
+ % The first section. Describe the database TAT	
+ \section{Description of Database {\it TAT}}
+
+ \begin{itemize}
+  \item Database {\it TAT} records data for Taiwan Automated Telescope.
+  \item Database {\it TAT} contains three tables:\\
+   {\it targets, data\_file, observatory}
+ \end{itemize}
+ 	
+ % describe the Table targets
+ \subsection{Table {\it targets}}
+ \begin{itemize}
+  \item Table {\it targets} shows information of the targets for observation.
+  \item Table {\it targets} contains the following keys:\\
+  \footnotesize   % lower size for keys
+  \indent ID, NAME, RA(deg), DEC(deg), RA, DEC, MAGNITUDE, PERIOD, TYPE, BFE0, F0, BFE1, F1, BFE2, F2, BFE3, F3, BFE4, F4, BFE5, F5, BFE6, F6
+  \normalsize
+  \item The meaning of each key is:
+  \begin{itemize}
+   \item \textbf {ID} is the identification number for every data and it is unique.
+   \item \textbf {NAME} is the name of target and it is unique.
+   \item \textbf {RA(deg)} is the right ascension of the target and its unit is degree.
+   \item \textbf {DEC(deg)} is the declination of the target and its unit is degree.
+   \item \textbf {RA} is the right ascension of the target and its type is HH:MM:SS.
+   \item \textbf {DEC} is the declination of the target and its type is DEG:ARCMIN:ARCSEC. 
+   \item \textbf {MAGNITUDE} is the cataloged relative magnitude of the target.
+   \item \textbf {PERIOD} is the period of magnitude oscillation. 
+   \item \textbf {TYPE} is the type of target. Example: star, galaxy...
+   \item \textbf {BFE0,1,2,3,...} is the best exposure time for filter 0,1,2,3,...
+   \item \textbf {F0,1,2,3,...} is the filter 0,1,2,3,...
+  \end{itemize}
+  
+	
+  \item The following table is an example:
+  % create the table	
+  \begin{table}[!htbp]
+   \centering
+   \caption{Example for table {\it targets}}
+   \resizebox{\textwidth}{!}{
+   \begin{tabular}{|*{21}{c|}}
+    \hline
+    ID & NAME & RA(deg) & DEC(deg) & RA & DEC & MAGNITUDE & PERIOD & TYPE & BFE0 & F0 & BFE1 & F1 & BFE2 & F2 & BFE3 & F3 & BFE4 & F4 & BFE5 & F5   \\ \hline
+    1 & IC5146 & 328.35 & 47.266 & 21:53:24 & 47:16:00 & 0 & 0 & star & 0 & A & 0 & B & 0 & C & 0 & N & 0 & R & 0 & V\\ \hline
+   \end{tabular}
+   }
+  \end{table}
+ \end{itemize}
+
+ % describe the Table file_data
+ \subsection{Table {\it data\_file}}
+ \begin{itemize}
+  \item Table {\it data\_file} shows the information of images.
+  \item Table {\it data\_file} contains the following keys:\\
+  \footnotesize
+  \indent ID, FILENAME, FILEPATH, FILTER, RA(deg), DEC(deg), RA, DEC, SITENAME, CCDTEMP, EXPTIME, DATE-OBS, TIME-OBS, MJD-OBS, AIRMASS, JD, SUBBED, DIVFITTED
+  \normalsize
+  \item The meaning of each key is:
+  \begin{itemize}
+   \item {\bf ID} is the identification number for every data and it is unique.
+   \item {\bf FILENAME} is the filename of image and it is unique.
+   \item {\bf FILEPATH} is the path of data file.
+   \item {\bf FILTER} is the one of filters in the band A, B, C, N, R, or V.
+   \item {\bf RA(deg)} is the right ascension of the center of image and its unit is degree.
+   \item {\bf DEC(deg)} is the declination of the center of image and its unit is degree.
+   \item \textbf {RA} is the right ascension of the center of image and its type is HH:MM:SS.
+   \item \textbf {DEC} is the declination of the center of image and its type is DEG:ARCMIN:ARCSEC.
+   \item {\bf SITENAME} is the location of site.
+   \item {\bf CCDTEMP} is the CCD temperature.
+   \item {\bf EXPTIME} is the exposure time.
+   \item {\bf DATE-OBS} is the date and its type is YYYY/MM/DD.
+   \item {\bf TIME-OBS} is the observation time and its type is HH:MM:SS.SS
+   \item {\bf MJD-OBS} the Modified Julian Date.
+   \item {\bf AIRMASS} provides the condition to compare.
+   \item {\bf JD} is the Julian Date.
+   \item {\bf SUBBED} if the file has been subbed or not.
+   \item {\bf FLATDIVED} if the file has been divided by flat or not.
+   
+  \end{itemize}
+	
+  \item The following table is an example:
+ \end{itemize}
+	
+ %create the table
+ \begin{table}[!htbp]
+  \centering
+  \caption{Example for table {\it data\_file}}
+  \resizebox{\textwidth}{!}
+  {
+   \begin{tabular}{|*{18}{c|}}
+    \hline
+    ID & FILENAME & FILEPATH & FILTER & RA(deg) & DEC(deg) & RA & DEC & SITENAME & CCDTEMP & EXPTIME & DATE-OBS & TIME-OBS & MJD-OBS & AIRMASS & JD & subbed & divfitted  \\ \hline
+    1 & AStarTF20180705\_215223.fit & /home2/TAT/data/raw/TF/image/20180705 & A & 0 & 0 & 19:20:30 & 11:02:01 & TF & -16.2883 & 600 & 2018-07-05 &	21:52:23.26 & 58304.918345 & NULL & 2458305.41834 & 0 & 0 \\ \hline 
+    2 & AStarTF20180705\_221349.fit & /home2/TAT/data/raw/TF/image/20180705 & A & 0 & 0 & 19:20:30 & 11:02:01 & TF & -30.0856 & 600 & 2018-07-05 &	22:13:49.26 & 58304.933229 & NULL & 2458305.43323 & 0 & 0 \\ \hline
+    3 & AStarTF20180705\_223518.fit & /home2/TAT/data/raw/TF/image/20180705 & A & 0 & 0 & 19:20:30 & 11:02:01 & TF & -30.0385 & 600 & 2018-07-05 & 	22:35:18.26 & 58304.94816 & NULL & 2458305.44816 & 0 & 0 \\ \hline
+    4 & AStarTF20180705\_225646.fit & /home2/TAT/data/raw/TF/image/20180705 & A & 0 & 0 & 19:20:30 & 11:02:01 & TF & -30.0605 & 600 & 2018-07-05 &	22:56:46.26 & 58304.963056 & NULL & 2458305.46306 & 0 & 0 \\ \hline 
+   \end{tabular}
+   }
+  \end{table}
+
+ %describle the table observatory
+ \subsection{Table {\it observatory}}
+ \begin{itemize}
+  \item Table {\it observatory} contains the following key:\\
+  \footnotesize
+  \indent ID, SITENAME, SITELAT, SITELONG, SITEALT
+  \normalsize
+  \item The meaning of each key:
+  \begin{itemize}
+   \item \textbf {ID} is the identification number for data and it is unique.
+   \item \textbf {SITENAME} is the location of observatory and it is unique.
+   \item \textbf {SITELAT} is the latitude of the observatory. 
+   \item \textbf {SITELONG} is the longitude of the observatory.
+   \item \textbf {SITEALT} is the altitude of the observatory.
+  \end{itemize}
+  
+	
+  \item The following table is an example:
+ \end{itemize}
+	
+ %create the table	
+ \begin{table}[!htbp]
+  \centering
+  \caption{Table {\it observatory}}
+  \begin{tabular}{|*{5}{c|}}
+   \hline
+   ID & SITENAME & SITELAT & SITELONG & SITEALT \\ \hline
+   1 & TF & 28.30 & -16.51 & 2300 \\ \hline    
+   2 & LI-JIANG & 26.69 & 100.03 & 3330 \\ \hline 
+  \end{tabular}
+ \end{table}
+
+ \newpage
+	
+ %The second section. 
+ \section{Program {\it TAT\_database\_update}}
+ \begin{itemize}
+  \item This program updates the data of images which saved in the path written in the file {\it back\_up\_path.txt} in database {\it TAT}
+ \end{itemize}
+ 
+ \subsection{Pre-requirements}
+ \begin{itemize}
+  \item This program uses python 2.7.11 and mysql in CentOS 7.
+  \begin{enumerate}
+   \item Install python with:\\
+   \verb|	yum install python2|
+   \item Install python-pip with:\\
+   \verb|		yum install epel-release|\\
+   \verb|		yum install python-pip| 
+   \item Install MariaDB
+  
+   \begin{enumerate}[itemindent=1pt,label=(\arabic*)]
+    \item Install MariaDB with yum:\\
+    \verb|		yum install mariadb-server mariadb|
+    \item After the installation are completed, start MariaDB with:\\
+    \verb|		systemctl start mariadb|    
+   \end{enumerate}
+  \end{enumerate}
+ \end{itemize}
+ \subsection{Install this program {\it TAT\_database\_update}}
+ \begin{itemize}
+  \item Download this program and follow the steps to install.
+  \begin{enumerate}
+   \item Download from github, using this command:\\
+   \verb|		git clone https://github.com/yun-yan/TAT_db|
+   \item Create the database {\it TAT}, using the command:\\
+   \verb|		mysql < TAT_create_db.sql|	
+   \item Install the modules for the file {\it update\_to\_TAT\_db.py}, the command:\\
+   \verb|		pip install -r requirements.txt|
+   \item Let the file {\it update\_to\_TAT\_db.py} be used in anywhere, the command:\\
+   \verb|		make install|
+ \end{enumerate}
+ \end{itemize}	
+
+ \subsection{Running}
+ \begin{itemize}
+  \item Insert the data of images stored in the path written in the file {\it back\_up\_path.txt} to database {\it TAT} with this command:\\
+  \verb|		update_to_TAT_db.py|
+ \end{itemize}
+ 	
+ \subsection{Source Files}	
+ \begin{itemize}
+  \item The files are located in the path \verb|/home2/TAT/program/TAT_database|
+  \item It contains the following files:
+  \begin{itemize}
+  \item \textbf {INSTALL} is the simple manual which describes how to install and execute.
+  \item \textbf {README.md} illustrates what this program can do.
+  \item \textbf {back\_up\_path.txt} contains the path you want to process.
+  \item \textbf {update\_to\_TAT\_db.py} inserts the data of images in the path written into file {\it back\_up\_path.txt} to database {\it TAT}.
+  \item \textbf {Makefile} is the convenient file to provide to use the command \verb|make| 
+  \item \textbf {TAT\_create\_db.sql} is the file to create the database {\it TAT}.
+  \item \textbf {requirement.txt} provides the modules for installation.
+  \item \textbf {log.txt} records the path already checked.
+  \end{itemize}
+  
+ \end{itemize}
+
+
+ \subsection{Authority}
+ \begin{itemize}
+  \item {\it TAT@localhost} has the privileges of selecting and modifying the database {\it TAT}, and its password is 1234
+  \item {\it read@localhost} has the only privilege of selecting database {\it TAT}, and its password is 1234
+ \end{itemize}
+ \subsection{Uninstall}
+ \begin{itemize}
+  \item Remove the file {\it update\_to\_TAT\_db.py} from \verb|/usr/local/bin|  with this command:\\
+  \verb|		make uninstall|
+  \item Clean the log from {\it log.txt} with:\\
+  \verb|		make clean|
+  \item Remove the database {\it TAT}, following the steps:
+  \begin{enumerate}
+   \item Enter mysql with this command:\\
+   \verb|	mysql|
+   \item Delete the database {\it TAT} with this command:\\
+   \verb|	drop database TAT;| 
+  \end{enumerate}			  
+ \end{itemize}
+
+
+\end{document}
